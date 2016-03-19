@@ -7,8 +7,6 @@
     <style>
         .screen {
           position: relative;
-          width: 800px;
-          height: 600px;
         }
 
         .screen > canvas {
@@ -29,7 +27,7 @@
         }
 
         .result-input {
-            /*display: none;*/
+            display: none;
         }
 
         .wrong {
@@ -37,14 +35,30 @@
             border-radius: 5px;
         }
 
-        .wrongInput {
+        .wrong-input {
             color: red;
+        }
+
+        .expression {
+            font-size: 40px;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .expression input {
+            font-size: 40px;
+            width: 40px;
+        }
+
+        .expression > * {
+            padding: 3px;
         }
     </style>
 </head>
 <body>
     <div id="screen" class="screen">
-        <div class="expression">
+        <div id="expression" class="expression">
             <span id="first_number" class="first-number"></span>
             <span class="sign">+</span>
             <span id="second_number" class="second-number"></span>
@@ -52,9 +66,6 @@
             <span id="result" class="result">?</span>
             <input id="result_input" class="result-input" type="text">
         </div>
-        <canvas id="canvas" class="screen" width="640" height="480">
-            Your browther doesn't support HTML canvas.
-        </canvas>
     </div>
 </body>
 </html>
