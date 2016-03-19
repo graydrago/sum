@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="script.js" type="text/javascript"></script>
+    <style>
+        .screen {
+          position: relative;
+          width: 800px;
+          height: 600px;
+        }
+
+        .screen > canvas {
+          position: absolute;
+        }
+
+        .screen > input {
+          position: absolute;
+          z-index: 1;
+          width: 20px;
+        }
+
+        .expression {
+          z-index: 1;
+          position: absolute;
+          left: 0;
+          right: 0;
+        }
+
+        .result-input {
+            /*display: none;*/
+        }
+
+        .wrong {
+            background-color: orange;
+            border-radius: 5px;
+        }
+
+        .wrongInput {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="screen" class="screen">
+        <div class="expression">
+            <span id="first_number" class="first-number"></span>
+            <span class="sign">+</span>
+            <span id="second_number" class="second-number"></span>
+            <span class="sign">=</span>
+            <span id="result" class="result">?</span>
+            <input id="result_input" class="result-input" type="text">
+        </div>
+        <canvas id="canvas" class="screen" width="640" height="480">
+            Your browther doesn't support HTML canvas.
+        </canvas>
+    </div>
+</body>
+</html>
