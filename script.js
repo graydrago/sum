@@ -123,6 +123,47 @@ window.addEventListener("load", function() {
     };
     // -----------------
     
+    // ----- Finctions -----
+    function isFunction(functionToCheck) {
+        var getType = {};
+        return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
+    }
+
+    function createSvgArrow(width) {
+        var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg"),
+            curve = document.createElementNS("http://www.w3.org/2000/svg", "path"),
+            arrow = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            height = width * 0.3;
+
+        svg.setAttribute('width', width);
+        svg.setAttribute('height', height);
+        svg.setAttributeNS("http://www.w3.org/2000/xmlns/",
+                           "xmlns:xlink",
+                           "http://www.w3.org/1999/xlink");
+
+        curve.setAttribute("d",
+                "M"+0+" "+height+" "+
+                "C "+width*0.2+" "+(0)+", "+
+                  (width-width*0.2)+" "+(0)+", "+
+                  width+" "+height);
+        curve.setAttribute("stroke", "red");
+        curve.setAttribute("stroke-width", "2");
+        curve.setAttribute("fill", "transparent");
+
+        arrow.setAttribute("d",
+                "M"+width+" "+height+" "+
+                "L "+(width - width*0.06)+" "+(height - height*0.11)+" "+
+                "M"+width+" "+height+" "+
+                "L "+(width - width*0.02)+" "+(height - height*0.23)+" ");
+        arrow.setAttribute("stroke", "red");
+        arrow.setAttribute("stroke-width", "2");
+
+        svg.appendChild(arrow);
+        svg.appendChild(curve);
+
+        return { image: svg, width: width, height: height };
+    }
+    
     function init() {
         var resultInput = document.getElementById("result_input"),
             expression = document.getElementById("expression"),
@@ -130,11 +171,16 @@ window.addEventListener("load", function() {
             result = document.getElementById("result"),
             ruler = new Ruler("ruler.png", 30, 200),
             firstNumber,
-            secondNumber;
+            secondNumber,
+            a, b, c;
 
         SCREEN = document.getElementById("screen");
-        ruler.setOffset(35, 20);
 
+        // Ruler
+        ruler.setOffset(35, 20);
+        ruler.drawImage();
+
+        // Expression
         for (var i in expression.childNodes) {
             var item = expression.childNodes[i];
 
@@ -144,11 +190,18 @@ window.addEventListener("load", function() {
         }
         expression.style.left = ruler.getCenter() - expressionWidth / 2 + "px";
 
-        firstNumber = new Arrow(0, 7, function() {
+        // Conditions
+        a = Math.round(Math.random() * (9 - 6) + 6);
+        c = Math.round(Math.random() * (14 - 11) + 11);
+        b = c - a;
+        console.log(a, b , c);
+
+        // Arrows
+        firstNumber = new Arrow(0, a, function() {
             secondNumber.enable();
         });
 
-        secondNumber = new Arrow(7, 11, function() {
+        secondNumber = new Arrow(a, c, function() {
             result.style.display = "none";
             resultInput.style.display = "inline";
             resultInput.addEventListener("input", function(event) {
@@ -157,6 +210,7 @@ window.addEventListener("load", function() {
                     result.innerHTML = sum;
                     resultInput.style.display = "none";
                     result.style.display = "inline";
+                    alert("You are awesome!!! ᕕ( ᐛ )ᕗ");
                 } else {
                     event.target.className = "wrong-input";
                 }
@@ -171,49 +225,9 @@ window.addEventListener("load", function() {
         secondNumber.bindElement(document.getElementById("second_number"));
 
         firstNumber.enable();
-        ruler.drawImage();
-        ruler.getCenter();
     }
+    // ---------------------
 
     init();
 });
 
-function isFunction(functionToCheck) {
-    var getType = {};
-    return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
-}
-
-function createSvgArrow(width) {
-    var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg"),
-        curve = document.createElementNS("http://www.w3.org/2000/svg", "path"),
-        arrow = document.createElementNS("http://www.w3.org/2000/svg", "path");
-        height = width * 0.3;
-
-    svg.setAttribute('width', width);
-    svg.setAttribute('height', height);
-    svg.setAttributeNS("http://www.w3.org/2000/xmlns/",
-                       "xmlns:xlink",
-                       "http://www.w3.org/1999/xlink");
-
-    curve.setAttribute("d",
-            "M"+0+" "+height+" "+
-            "C "+width*0.2+" "+(0)+", "+
-              (width-width*0.2)+" "+(0)+", "+
-              width+" "+height);
-    curve.setAttribute("stroke", "red");
-    curve.setAttribute("stroke-width", "2");
-    curve.setAttribute("fill", "transparent");
-
-    arrow.setAttribute("d",
-            "M"+width+" "+height+" "+
-            "L "+(width - width*0.06)+" "+(height - height*0.11)+" "+
-            "M"+width+" "+height+" "+
-            "L "+(width - width*0.02)+" "+(height - height*0.23)+" ");
-    arrow.setAttribute("stroke", "red");
-    arrow.setAttribute("stroke-width", "2");
-
-    svg.appendChild(arrow);
-    svg.appendChild(curve);
-
-    return { image: svg, width: width, height: height };
-}

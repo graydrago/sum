@@ -1,0 +1,49 @@
+.screen {
+    position: relative;
+}
+
+.screen > canvas {
+    position: absolute;
+}
+
+.screen > input {
+    position: absolute;
+    z-index: 1;
+    width: 20px;
+}
+
+.expression {
+    z-index: 1;
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+.result-input {
+    display: none;
+}
+
+.wrong {
+    background-color: orange;
+    border-radius: 5px;
+}
+
+.wrong-input {
+    color: red;
+}
+
+.expression {
+    font-size: 40px;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.expression input {
+    font-size: 40px;
+    width: 40px;
+}
+
+.expression > * {
+    padding: 3px;
+}
